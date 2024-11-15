@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  attack-server:
+    build:
+      context: ./JNDI-exploit-kit
+      dockerfile: Dockerfile
+    container_name: attack-server
+    networks:
+      - exploit-network
+    ports:
+      - "1389:1389" 
+
+  log4j-web:
+    container_name: log4j-web
+    build:
+      context: ./vulnerable-application
+      dockerfile: Dockerfile
+    networks:
+      - exploit-network
+    ports:
+      - "8080:8080"  
+
+networks:
+  exploit-network:
